@@ -1,18 +1,22 @@
 package com.icegroup.adclient.client;
 
 import android.annotation.SuppressLint;
+import android.os.Environment;
+//import android.provider.MediaStore;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageButton;
+import android.widget.VideoView;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
-public class VideoPlayerActivity extends AppCompatActivity {
+public class VideoPlayerActivity extends AppCompatActivity implements View.OnClickListener {
     /**
      * Whether or not the system UI should be auto-hidden after
      * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
@@ -32,12 +36,15 @@ public class VideoPlayerActivity extends AppCompatActivity {
     private static final int UI_ANIMATION_DELAY = 300;
     private final Handler mHideHandler = new Handler();
     private View mContentView;
+    //播放器
+    private VideoView mVideoView;
+    private ImageButton mImgBtnPlayer;
+    private ImageButton mImgBtnPause;
     private final Runnable mHidePart2Runnable = new Runnable() {
         @SuppressLint("InlinedApi")
         @Override
         public void run() {
             // Delayed removal of status and navigation bar
-
             // Note that some of these constants are new as of API 16 (Jelly Bean)
             // and API 19 (KitKat). It is safe to use them, as they are inlined
             // at compile-time and do nothing on earlier devices.
@@ -83,17 +90,15 @@ public class VideoPlayerActivity extends AppCompatActivity {
         }
     };
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_video_player);
 
         mVisible = true;
         mControlsView = findViewById(R.id.fullscreen_content_controls);
         mContentView = findViewById(R.id.fullscreen_content);
-
-
         // Set up the user interaction to manually show or hide the system UI.
         mContentView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,6 +111,44 @@ public class VideoPlayerActivity extends AppCompatActivity {
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
         findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
+        mVideoView = (VideoView)this.findViewById(R.id.videoViewPlayer);
+        PlayLocalFile("Media/BMW/BMW-Z4.wmv");
+        mImgBtnPlayer = (ImageButton) findViewById(R.id.imgBtnPlayer);
+        mImgBtnPlayer.setOnClickListener(this);
+/*        mImgBtnPlayer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mImgBtnPlayer.onstart;
+            }
+        });*/
+        mImgBtnPause = (ImageButton) findViewById(R.id.imgBtnPause);
+        mImgBtnPause.setOnClickListener(this);
+/*        mImgBtnPause.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //attemptLogin();
+            }
+        });*/
+    }
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.imgBtnPlayer:
+                mVideoView.start();
+                break;
+            case R.id.imgBtnPause:
+                mVideoView.pause();
+                break;
+/*            case R.id.imgBtnPause:
+                videoView.seekTo(3*1000);
+                break;*/
+        }
+    }
+
+    private void PlayLocalFile(String filePath){
+            mVideoView.setVideoPath(Environment.getExternalStorageDirectory() + "/" + filePath);
+            mVideoView.requestFocus();
+            mVideoView.start();
     }
 
     @Override
@@ -136,18 +179,19 @@ public class VideoPlayerActivity extends AppCompatActivity {
         mVisible = false;
 
         // Schedule a runnable to remove the status and navigation bar after a delay
+        //安排一个可运行延迟一段时间后删除状态和导航栏
         mHideHandler.removeCallbacks(mShowPart2Runnable);
         mHideHandler.postDelayed(mHidePart2Runnable, UI_ANIMATION_DELAY);
     }
 
     @SuppressLint("InlinedApi")
     private void show() {
-        // Show the system bar
-        mContentView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
+        // Show the system bar 显示系统栏
+        //mContentView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
         mVisible = true;
 
         // Schedule a runnable to display UI elements after a delay
+        //安排一个可运行的延迟后显示UI元素
         mHideHandler.removeCallbacks(mHidePart2Runnable);
         mHideHandler.postDelayed(mShowPart2Runnable, UI_ANIMATION_DELAY);
     }

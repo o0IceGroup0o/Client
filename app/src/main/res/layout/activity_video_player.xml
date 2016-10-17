@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#0099cc"
     tools:context="com.icegroup.adclient.client.VideoPlayerActivity">
 
@@ -10,9 +11,9 @@
          TextureView, etc. -->
 
     <VideoView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/videoView" />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/videoViewPlayer" />
 
     <TextView
         android:id="@+id/fullscreen_content"
@@ -50,6 +51,20 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/dummy_button" />
+            <ImageButton
+                android:id="@+id/imgBtnPlayer"
+                style="?metaButtonBarButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_play_pressed"
+                android:layout_weight="1" />
+            <ImageButton
+                android:id="@+id/imgBtnPause"
+                style="?metaButtonBarButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_pause_pressed"
+                android:layout_weight="1" />
 
         </LinearLayout>
     </FrameLayout>
