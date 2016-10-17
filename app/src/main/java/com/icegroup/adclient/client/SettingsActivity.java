@@ -35,8 +35,8 @@ import java.util.List;
  */
 public class SettingsActivity extends AppCompatPreferenceActivity {
     /**
-     * A preference value change listener that updates the preference's summary
-     * to reflect its new value.
+     * A preference value change listener that updates the preference's summary to reflect its new value.
+     *偏好值改变监听器,更新偏好的总结,以反映其新值。
      */
     private static Preference.OnPreferenceChangeListener sBindPreferenceSummaryToValueListener = new Preference.OnPreferenceChangeListener() {
         @Override
@@ -44,20 +44,21 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             String stringValue = value.toString();
 
             if (preference instanceof ListPreference) {
-                // For list preferences, look up the correct display value in
-                // the preference's 'entries' list.
+                // For list preferences, look up the correct display value in the preference's 'entries' list.
+                //首选项列表,查找正确的显示值偏好的条目的列表。
                 ListPreference listPreference = (ListPreference) preference;
                 int index = listPreference.findIndexOfValue(stringValue);
 
                 // Set the summary to reflect the new value.
+                //摘要以反映新的值
                 preference.setSummary(
                         index >= 0
                                 ? listPreference.getEntries()[index]
                                 : null);
 
             } else if (preference instanceof RingtonePreference) {
-                // For ringtone preferences, look up the correct display value
-                // using RingtoneManager.
+                // For ringtone preferences, look up the correct display value using RingtoneManager.
+                //
                 if (TextUtils.isEmpty(stringValue)) {
                     // Empty values correspond to 'silent' (no ringtone).
                     preference.setSummary(R.string.pref_ringtone_silent);
