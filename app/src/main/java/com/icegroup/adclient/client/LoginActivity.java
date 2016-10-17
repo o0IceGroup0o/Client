@@ -23,12 +23,16 @@ import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.ViewFlipper;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,14 +69,28 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+    private ViewFlipper mViewFlipper;
+    private Window mWindow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //隐藏底部虚拟按键
+        mWindow = getWindow();
+        WindowManager.LayoutParams params = mWindow.getAttributes();
+        //SYSTEM_UI_FLAG_LOW_PROFILE 相当于隐藏导航栏
+        //SYSTEM_UI_FLAG_VISIBLE         导航栏显示
+       // SYSTEM_UI_FLAG_HIDE_NAVIGATION 要求导航栏完全隐藏-->但这对部分硬件设备有效
+        params.systemUiVisibility = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
+        mWindow.setAttributes(params);
+        //------------------------------------------------
         setContentView(R.layout.activity_login);
         // Set up the login form.设置登录表单
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
+        mViewFlipper = (ViewFlipper)findViewById(R.id.ViewFlipper_Login);
+        mViewFlipper.startFlipping();
         populateAutoComplete();
+
 
         mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {

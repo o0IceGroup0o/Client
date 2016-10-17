@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">广告播放器</string>
+    <string name="app_name">系统设置</string>
     <string name="action_sign_in">登录或者注册</string>
     <string name="action_sign_in_short">登录</string>
     <string name="error_field_required">这个字段是必须的</string>
@@ -11,7 +11,7 @@
     <string name="prompt_password">密码(可选)</string>
     <string name="permission_rationale">需要提供电子邮件才能完成</string>
     <string name="title_activity_settings">设置</string>
-    <string name="title_activity_video_player">系统设置</string>
+    <string name="title_activity_video_player">广告播放器</string>
     <string name="pref_title_vibrate">振动</string>
     <string name="pref_title_system_sync_settings">系统同步设置</string>
     <string name="pref_title_sync_frequency">同步频率</string>
