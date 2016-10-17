@@ -1,6 +1,7 @@
 package com.icegroup.adclient.client;
 
 import android.annotation.SuppressLint;
+import android.content.pm.ActivityInfo;
 import android.os.Environment;
 //import android.provider.MediaStore;
 import android.support.v7.app.ActionBar;
@@ -130,6 +131,19 @@ public class VideoPlayerActivity extends AppCompatActivity implements View.OnCli
             }
         });*/
     }
+
+    @Override
+    protected void onResume() {
+        /**
+         * 设置为横屏
+         */
+        if(getRequestedOrientation()!= ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE)
+        {
+            setRequestedOrientation( ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        }
+        super.onResume();
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
